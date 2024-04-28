@@ -4,28 +4,37 @@ def parse_input(user_input):
     return cmd, args
 
 def add_contact(args, contacts):
-    if len(args) != 2:
-        return "Невірна команда. Формат: add [ім'я] [телефон]"
-    name, phone = args
-    contacts[name] = phone
-    return "Контакт додано."
+    try:
+        if len(args) != 2:
+            raise ValueError("Невірна команда. Формат: add [ім'я] [телефон]")
+        name, phone = args
+        contacts[name] = phone
+        return "Контакт додано."
+    except Exception as e:
+        return str(e)
 
 def change_contact(args, contacts):
-    if len(args) != 2:
-        return "Невірна команда. Формат: change [ім'я] [телефон]"
-    name, phone = args
-    if name not in contacts:
-        return "Контакт не знайдено."
-    contacts[name] = phone
-    return "Контакт оновлено."
+    try:
+        if len(args) != 2:
+            raise ValueError("Невірна команда. Формат: change [ім'я] [телефон]")
+        name, phone = args
+        if name not in contacts:
+            raise ValueError("Контакт не знайдено.")
+        contacts[name] = phone
+        return "Контакт оновлено."
+    except Exception as e:
+        return str(e)
 
 def show_phone(args, contacts):
-    if len(args) != 1:
-        return "Невірна команда. Формат: phone [ім'я]"
-    name = args[0]
-    if name not in contacts:
-        return "Контакт не знайдено."
-    return contacts[name]
+    try:
+        if len(args) != 1:
+            raise ValueError("Невірна команда. Формат: phone [ім'я]")
+        name = args[0]
+        if name not in contacts:
+            raise ValueError("Контакт не знайдено.")
+        return contacts[name]
+    except Exception as e:
+        return str(e)
 
 def show_all(contacts):
     if not contacts:
@@ -57,4 +66,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
